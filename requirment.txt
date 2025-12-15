@@ -1,0 +1,8 @@
+movie-recommendation/
+│
+├─ main.py                 # your Streamlit app
+├─ movies.csv              # your dataset CSV
+├─ movie_data.pkl          # pickled data (optional if you load CSV directly)
+├─ requirements.txt
+└─ .streamlit/
+   └─ secrets.toml        # for Firebase (optional)
