@@ -17,14 +17,24 @@ def get_recommendations(title, cosine_sim=cosine_sim):
     return movies[['title', 'movie_id']].iloc[movie_indices]
 
 # Fetch movie poster from TMDB API
+import requests
+
 def fetch_poster(movie_id):
     api_key = '7b995d3c6fd91a2284b4ad8cb390c7b8'  # Replace with your TMDB API key
     url = f'https://api.themoviedb.org/3/movie/{movie_id}?api_key={api_key}'
+    
     response = requests.get(url)
     data = response.json()
-    poster_path = data['poster_path']
-    full_path = f"https://image.tmdb.org/t/p/w500{poster_path}"
-    return full_path
+    
+    # Check if 'poster_path' exists and is not None
+    if data.get('poster_path'):
+        poster_path = data['poster_path']
+        full_path = f"https://image.tmdb.org/t/p/w500{poster_path}"
+        return full_path
+    else:
+        # Return a placeholder image if no poster is available
+        return "https://via.placeholder.com/500x750?text=No+Image"
+
 
 # Streamlit UI
 st.title("Movie Recommendation System")
